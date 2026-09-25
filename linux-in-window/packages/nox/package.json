@@ -1,0 +1,11 @@
+{
+  "name": "@liw/nox",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./browser": "./src/browser-compile.js"
+  },
+  "description": "Nox language parser + sandboxed runtime for Linux in Window"
+}

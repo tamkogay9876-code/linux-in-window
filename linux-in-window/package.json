@@ -1,0 +1,26 @@
+{
+  "name": "linux-in-window",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Linux in Window - Customization Store + Package Manager + Runtime Engine for Windows Terminal",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build:core": "npm run build -w @liw/core",
+    "build:nox": "npm run build -w @liw/nox",
+    "build:ipc": "npm run build -w @liw/ipc",
+    "build:cli": "npm run build -w @liw/cli",
+    "build:gui": "npm run build -w @liw/gui",
+    "build:electron": "npm run build -w @liw/electron",
+    "build": "npm run build:core && npm run build:nox && npm run build:ipc && npm run build:cli && npm run build:gui && npm run build:electron",
+    "dev:gui": "npm run dev -w @liw/gui",
+    "dev:electron": "npm run dev -w @liw/electron",
+    "test": "node --test tests/",
+    "linux": "node packages/cli/dist/index.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
