@@ -53,14 +53,14 @@ export function tokenize(src) {
     if (ch === '{' || ch === '}') { tokens.push({ type: ch, line, col }); adv(); continue; }
     if (ch === '"') {
       const start = { line, col };
-      adv();
+      adv(); // opening quote
       let str = '';
       while (i < src.length && src[i] !== '"') {
         if (src[i] === '\\') { str += src[i + 1] ?? ''; adv(2); }
         else { str += src[i]; adv(); }
       }
-      if (src[i] !== '"') throw new NoxSyntaxError('unterminated string', start.line, start.col);
-      adv();
+      if (i >= src.length || src[i] !== '"') throw new NoxSyntaxError('unterminated string', start.line, start.col);
+      adv(); // closing quote
       tokens.push({ type: 'string', value: str, ...start });
       continue;
     }
