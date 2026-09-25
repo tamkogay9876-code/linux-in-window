@@ -4,7 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { paths, readJsonSafe } from './storage.js';
-import { loadState } from './state.js';
+import { loadState, loadSettings, loadProfiles } from './state.js';
 import { loadPackageManifest } from './manifest.js';
 
 /** Read a package's theme contribution (theme/theme.json). */
@@ -44,8 +44,16 @@ export function collectContributions({ safeMode = false } = {}) {
 /**
  * Merge theme objects. Later packages override earlier ones key-by-key.
  * Produces a conflict list instead of silently overwriting.
+ *
+ * Priority order (highest wins): an enabled profile's package list is applied
+ * last, so `profile.use` acts as the merge priority; otherwise alphabetical id.
  */
-export function mergeThemes(contributions) {
+export function mergeThemes(contributions, { priority = null } = {}) {
+  const ordered = [...contributions];
+  if (Array.isArray(priority) && priority.length) {
+    const rank = new Map(priority.map((id, i) => [id, i]));
+    ordered.sort((a, b) => (rank.get(a.id) ?? -1) - (rank.get(b.id) ?? -1));
+  }
   const merged = {
     scheme: {},        // WT colorScheme
     profile: {},       // WT profile overrides
@@ -82,7 +90,7 @@ export function mergeThemes(contributions) {
     owners.set(fullKey, owner);
   };
 
-  for (const c of contributions) {
+  for (const c of ordered) {
     const t = c.theme || {};
     for (const [section, values] of Object.entries(t)) {
       if (Array.isArray(values)) {
@@ -135,7 +143,16 @@ export function buildWtContribution(id, merged) {
 
 export function effectiveConfig({ safeMode = false } = {}) {
   const contributions = collectContributions({ safeMode });
-  const { merged, conflicts } = mergeThemes(contributions);
+  let priority = null;
+  try {
+    // active profile (if not 'default') defines merge priority for its packages
+    const s = loadSettings();
+    const profiles = loadProfiles();
+    if (s.activeProfile && s.activeProfile !== 'default' && profiles[s.activeProfile]) {
+      priority = profiles[s.activeProfile].packages || [];
+    }
+  } catch { /* ignore */ }
+  const { merged, conflicts } = mergeThemes(contributions, { priority });
   return { contributions, merged, conflicts };
 }
 

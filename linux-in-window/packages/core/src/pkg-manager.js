@@ -39,14 +39,34 @@ export function hashPackageDir(dir) {
 }
 
 // ---- .linuxmod archive (zip) --------------------------------------------------
+// Uses the bundled dependency-free python helper (tools/ziptool.py) so archives
+// work on any machine that has Python — including Windows where `zip`/`unzip`
+// binaries do not exist.
+
+import { fileURLToPath } from 'node:url';
+
+function ziptoolPath() {
+  if (process.env.LIW_ZIPTOOL) return process.env.LIW_ZIPTOOL;
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  // packages/core/src -> repo root /tools/ziptool.py
+  const candidates = [
+    path.resolve(here, '../../../tools/ziptool.py'),
+    path.resolve(here, '../../../../tools/ziptool.py'),
+  ];
+  for (const c of candidates) if (fs.existsSync(c)) return c;
+  throw new Error('ziptool.py not found — set LIW_ZIPTOOL to its path');
+}
+
+function pythonBin() {
+  return process.env.LIW_PYTHON || (process.platform === 'win32' ? 'python' : 'python3');
+}
 
 export function buildLinuxMod(pkgDir, outDir = paths.downloads()) {
   const manifest = loadPackageManifest(pkgDir);
   fs.mkdirSync(outDir, { recursive: true });
   const out = path.join(outDir, `${manifest.id}-${manifest.version}.linuxmod`);
   if (fs.existsSync(out)) fs.rmSync(out);
-  // `zip -r out.linuxmod .` from inside the package dir
-  execFileSync('zip', ['-r', '-q', out, '.'], { cwd: pkgDir });
+  execFileSync(pythonBin(), [ziptoolPath(), 'create', out, path.resolve(pkgDir)]);
   const sha = sha256File(out);
   writeJson(`${out}.sha256`, { file: path.basename(out), sha256: sha, size: fs.statSync(out).size });
   return { file: out, sha256: sha, size: fs.statSync(out).size };
@@ -54,7 +74,7 @@ export function buildLinuxMod(pkgDir, outDir = paths.downloads()) {
 
 export function extractArchive(archive, dest) {
   fs.mkdirSync(dest, { recursive: true });
-  execFileSync('unzip', ['-q', '-o', archive, '-d', dest]);
+  execFileSync(pythonBin(), [ziptoolPath(), 'extract', path.resolve(archive), path.resolve(dest)]);
   // handle single-wrapper-folder archives
   const entries = fs.readdirSync(dest);
   if (entries.length === 1) {

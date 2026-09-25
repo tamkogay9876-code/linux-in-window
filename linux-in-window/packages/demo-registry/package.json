@@ -1,0 +1,8 @@
+{
+  "name": "@liw/demo-registry",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": { ".": "./src/index.js" },
+  "description": "Bundled demo packages + local marketplace registry for Linux in Window"
+}

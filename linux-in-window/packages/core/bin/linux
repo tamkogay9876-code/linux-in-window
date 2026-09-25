@@ -1,0 +1,4 @@
+#!/bin/sh
+# Linux in Window CLI launcher (POSIX / Git Bash)
+DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+exec node "$DIR/../../cli/src/index.js" "$@"
