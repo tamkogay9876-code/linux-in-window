@@ -109,14 +109,29 @@ export function parseNox(src) {
     return tokens[k].type;
   }
 
+  /**
+   * Is the identifier at index `k` a *value* (bareword argument) rather than
+   * the name of a new statement? Two cases:
+   *  - dotted reference (`rotation.y`) — always a value;
+   *  - plain bareword followed by another value token or `{`
+   *    (`position center`, `animation pulse {`).
+   * A plain ident followed by yet another plain ident is NOT consumed here
+   * (`property opacity` / `from 0.7` are separate statements, and greedy
+   * chained lookahead would swallow statement names).
+   */
+  function identIsValue(k) {
+    if (tokens[k].type !== 'ident') return false;
+    if (tokens[k].value.includes('.')) return true; // dotted reference like rotation.y
+    const nxt = tokens[k + 1];
+    if (!nxt) return false;
+    if (nxt.type === '{' || nxt.type === 'string' || nxt.type === 'number' || nxt.type === 'bool') return true;
+    return false;
+  }
+
   /** Consume bareword values into `into`: `position center`, `animate rotation.y { ... }`. */
   function collectBarewords(into) {
-    for (;;) {
-      if (peek().type === 'ident' && peek().value.includes('.')) {
-        into.push({ kind: 'ref', value: next().value });
-      } else if (peek().type === 'ident' && (tokens[pos + 1].type === '{' || valueStart(tokens[pos + 1]))) {
-        into.push({ kind: 'ref', value: next().value });
-      } else break;
+    while (peek().type === 'ident' && identIsValue(pos)) {
+      into.push({ kind: 'ref', value: next().value });
     }
   }
 
