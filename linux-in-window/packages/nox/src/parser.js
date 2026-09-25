@@ -111,33 +111,31 @@ export function parseNox(src) {
 
   /**
    * Is the identifier at index `k` a *value* (bareword argument) rather than
-   * the name of a new statement? Two cases:
+   * the name of a new statement? Three cases:
    *  - dotted reference (`rotation.y`) — always a value;
-   *  - plain bareword followed by another value token or `{`
-   *    (`position center`, `animation pulse {`).
-   * A plain ident followed by yet another plain ident is NOT consumed here
-   * (`property opacity` / `from 0.7` are separate statements, and greedy
-   * chained lookahead would swallow statement names).
+   *  - plain bareword followed by `{` (`animation pulse {`);
+   *  - plain bareword followed by another plain bareword that is itself a
+   *    value (`property opacity to ...` -> `opacity` is followed by the value
+   *    `to`, so it is a value too). This chained rule never swallows a
+   *    statement name, because a name is only ever followed by literals or
+   *    `{`/ident-that-is-a-name.
    */
   function identIsValue(k) {
-    if (tokens[k].type !== 'ident') return false;
+    if (tokens[k]?.type !== 'ident') return false;
     if (tokens[k].value.includes('.')) return true; // dotted reference like rotation.y
     const nxt = tokens[k + 1];
     if (!nxt) return false;
-    if (nxt.type === '{' || nxt.type === 'string' || nxt.type === 'number' || nxt.type === 'bool') return true;
+    if (nxt.type === '{') return true;                 // `position center` / `animation pulse {`
+    if (nxt.type === 'ident' && !nxt.value.includes('.')) {
+      // `property opacity to 1.0`: `opacity` is a value iff `to` is one too.
+      return identIsValue(k + 2);
+    }
     return false;
   }
 
   /** Consume bareword values into `into`: `position center`, `animate rotation.y { ... }`. */
   function collectBarewords(into) {
-    // A bareword is a value only if the *statement* it belongs to has no other
-    // values yet, or it is a dotted reference (`rotation.y`). This prevents
-    // `background "#050505" color "#00ffcc"` from swallowing `color` as a value.
-    while (peek().type === 'ident') {
-      const tok = tokens[pos];
-      const dotted = tok.value.includes('.');
-      if (!dotted && into.length > 0) break;
-      if (!identIsValue(pos)) break;
+    while (peek().type === 'ident' && identIsValue(pos)) {
       into.push({ kind: 'ref', value: next().value });
     }
   }
