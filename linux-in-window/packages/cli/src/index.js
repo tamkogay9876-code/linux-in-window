@@ -68,6 +68,8 @@ const [cmd, ...args] = pos;
 switch (cmd) {
   case undefined:
   case 'help':      console.log(HELP); break;
+  case 'version':
+  case '--version': console.log('linux-in-window 0.1.0 (cli)'); break;
   case 'search':    await pkg.cmdSearch(args.join(' ') || ''); break;
   case 'marketplace': pkg.cmdMarketplace(); break;
   case 'install':   await pkg.cmdInstall(args[0], flags); break;

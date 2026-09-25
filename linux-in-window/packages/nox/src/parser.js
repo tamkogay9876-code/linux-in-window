@@ -109,24 +109,32 @@ export function parseNox(src) {
     return tokens[k].type;
   }
 
+  /** Consume bareword values into `into`: `position center`, `animate rotation.y { ... }`. */
+  function collectBarewords(into) {
+    for (;;) {
+      if (peek().type === 'ident' && peek().value.includes('.')) {
+        into.push({ kind: 'ref', value: next().value });
+      } else if (peek().type === 'ident' && (tokens[pos + 1].type === '{' || valueStart(tokens[pos + 1]))) {
+        into.push({ kind: 'ref', value: next().value });
+      } else break;
+    }
+  }
+
   function parseBody() {
     const body = [];
     for (;;) {
       const t = peek();
+      let args;
       if (t.type === 'eof') throw new NoxSyntaxError('unexpected end of file, expected "}"', t.line, t.col);
       if (t.type === '}') { next(); return body; }
       if (t.type !== 'ident') throw new NoxSyntaxError(`expected identifier, got "${t.type}"`, t.line, t.col);
       next();
       const name = t.value;
-      const args = collectValues();
-      // A dotted bareword (`rotation.y`) is always an argument, never a statement name.
-      if (peek().type === 'ident' && peek().value.includes('.')) {
-        args.push({ kind: 'ref', value: next().value });
-      }
+      args = collectValues();
+      collectBarewords(args);
+
       const term = terminatorType();
       if (term === '{') {
-        const extra = collectValues();
-        args.push(...extra);
         next(); // consume '{'
         body.push({ kind: 'block', name, args, body: parseBody(), line: t.line });
       } else {
