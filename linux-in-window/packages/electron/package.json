@@ -1,0 +1,14 @@
+{
+  "name": "@liw/electron",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/main.cjs",
+  "description": "Linux in Window desktop shell (Electron main process)",
+  "scripts": {
+    "dev": "electron .",
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}

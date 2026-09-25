@@ -130,7 +130,14 @@ export function parseNox(src) {
 
   /** Consume bareword values into `into`: `position center`, `animate rotation.y { ... }`. */
   function collectBarewords(into) {
-    while (peek().type === 'ident' && identIsValue(pos)) {
+    // A bareword is a value only if the *statement* it belongs to has no other
+    // values yet, or it is a dotted reference (`rotation.y`). This prevents
+    // `background "#050505" color "#00ffcc"` from swallowing `color` as a value.
+    while (peek().type === 'ident') {
+      const tok = tokens[pos];
+      const dotted = tok.value.includes('.');
+      if (!dotted && into.length > 0) break;
+      if (!identIsValue(pos)) break;
       into.push({ kind: 'ref', value: next().value });
     }
   }
