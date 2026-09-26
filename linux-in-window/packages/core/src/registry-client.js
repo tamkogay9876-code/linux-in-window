@@ -8,8 +8,24 @@ import path from 'node:path';
 import { paths, readJsonSafe, writeJson } from './storage.js';
 import crypto from 'node:crypto';
 
+export function bundledRegistryDir() {
+  // demo-packages ships at the repo root: <root>/demo-packages
+  const here = path.dirname(new URL(import.meta.url).pathname);
+  const candidates = [
+    path.resolve(here, '../../../demo-packages'),        // packages/core/src -> repo root
+    path.resolve(here, '../../../../demo-packages'),     // when run from dist build
+  ];
+  for (const c of candidates) {
+    if (fs.existsSync(path.join(c, 'index.json'))) return c;
+  }
+  return null;
+}
+
 export function registryDir() {
-  return process.env.LIW_REGISTRY_DIR || paths.registry();
+  if (process.env.LIW_REGISTRY_DIR) return process.env.LIW_REGISTRY_DIR;
+  const dir = paths.registry();
+  if (fs.existsSync(path.join(dir, 'index.json'))) return dir;
+  return bundledRegistryDir() || dir;
 }
 
 export function localRegistryIndex() {
