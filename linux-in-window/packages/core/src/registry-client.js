@@ -5,12 +5,16 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { paths, readJsonSafe, writeJson } from './storage.js';
 import crypto from 'node:crypto';
 
 export function bundledRegistryDir() {
   // demo-packages ships at the repo root: <root>/demo-packages
-  const here = path.dirname(new URL(import.meta.url).pathname);
+  // NOTE: must use fileURLToPath — on Linux `new URL(...).pathname` mangles
+  // paths containing spaces/unicode (percent-encodes them), and on Windows it
+  // produces "/C:/..." which breaks path.resolve.
+  const here = path.dirname(fileURLToPath(import.meta.url));
   const candidates = [
     path.resolve(here, '../../../demo-packages'),        // packages/core/src -> repo root
     path.resolve(here, '../../../../demo-packages'),     // when run from dist build

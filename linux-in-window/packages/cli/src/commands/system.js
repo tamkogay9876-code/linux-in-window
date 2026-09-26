@@ -2,6 +2,7 @@
 // profiles / export / import / settings / favorite / collection / open / ai.
 
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { color, table, ok, warn, err, info } from '../ui.js';
 import {
   runDoctor, listBackups, createBackup, restore, pruneBackups,
@@ -153,7 +154,7 @@ export function cmdSetupPath() {
   fs.mkdirSync(binDir, { recursive: true });
   const launcher = path.join(binDir, 'linux.cmd');
   if (!fs.existsSync(launcher)) {
-    const repoRoot = path.resolve(path.dirname(new URL(import.meta.url).pathname), '../../../..');
+    const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../..');
     fs.writeFileSync(launcher, `@echo off\r\nnode "${path.join(repoRoot, 'packages/cli/src/index.js')}" %*\r\n`, 'utf8');
   }
   ok(`launcher written to ${binDir}`);

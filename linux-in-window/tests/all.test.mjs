@@ -12,6 +12,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { execFileSync } from 'node:child_process';
 import { createRequire } from 'node:module';
+import { fileURLToPath } from 'node:url';
 
 const require = createRequire(import.meta.url);
 
@@ -19,7 +20,7 @@ const require = createRequire(import.meta.url);
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'liw-test-'));
 process.env.LIW_HOME = path.join(TMP, 'linux');
 
-const root = path.resolve(path.dirname(new URL(import.meta.url).pathname), '..');
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const core = await import(path.join(root, 'packages/core/src/index.js'));
 const nox = await import(path.join(root, 'packages/nox/src/index.js'));
 
@@ -194,8 +195,20 @@ describe('registry', () => {
 // ---------------------------------------------------------------------------
 describe('cli', () => {
   const cli = path.join(root, 'packages/cli/src/index.js');
+  // Some package managers (e.g. Nix/nixpkgs node) hardcode process.execPath to
+  // /usr/bin/node which does not exist; resolve the real binary via PATH.
+  function resolveNode() {
+    if (fs.existsSync(process.execPath)) return process.execPath;
+    const dirs = (process.env.PATH || '').split(path.delimiter);
+    const bin = process.platform === 'win32' ? 'node.exe' : 'node';
+    for (const d of dirs) {
+      const c = path.join(d, bin);
+      if (d && fs.existsSync(c)) return c;
+    }
+    return process.execPath;
+  }
   function runCli(args) {
-    return execFileSync(process.execPath, [cli, ...args], {
+    return execFileSync(resolveNode(), [cli, ...args], {
       env: { ...process.env, NO_COLOR: '1' }, encoding: 'utf8', timeout: 30000, cwd: root,
     });
   }

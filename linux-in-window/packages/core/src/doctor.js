@@ -2,6 +2,7 @@
 
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { execFileSync } from 'node:child_process';
 import os from 'node:os';
 import { paths, readJsonSafe, dirSize } from './storage.js';
@@ -114,7 +115,7 @@ export function runDoctor() {
 function await_import_nox() {
   try {
     // sync probe via require cache trick isn't available in ESM; do a path existence check instead
-    const here = path.dirname(new URL(import.meta.url).pathname);
+    const here = path.dirname(fileURLToPath(import.meta.url));
     return fs.existsSync(path.join(here, '../../nox/src/parser.js'));
   } catch {
     return false;
