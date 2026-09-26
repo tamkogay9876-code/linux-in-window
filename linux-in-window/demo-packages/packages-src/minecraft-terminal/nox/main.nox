@@ -1,0 +1,18 @@
+terminal {
+
+    background "#2B2B2B"
+
+    color "#ffffff"
+
+    cursor {
+        color "#7bd34e"
+        blink true
+    }
+
+}
+
+window {
+
+    title "Minecraft Terminal"
+
+}

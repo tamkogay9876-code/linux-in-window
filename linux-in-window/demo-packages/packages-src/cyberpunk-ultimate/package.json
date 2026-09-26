@@ -1,0 +1,30 @@
+{
+  "id": "cyberpunk-ultimate",
+  "name": "Cyberpunk Ultimate (Mega Pack)",
+  "version": "1.0.0",
+  "author": "Linux in Window Community",
+  "description": "Theme + prompt + background + animation combined into one mega pack.",
+  "type": "mega-pack",
+  "runtime": {
+    "nox": true
+  },
+  "permissions": [
+    "terminal",
+    "windows-terminal",
+    "nox",
+    "gpu"
+  ],
+  "targets": [
+    "windows-terminal"
+  ],
+  "dependencies": [
+    "cyberpunk-terminal",
+    "minimal-terminal"
+  ],
+  "tags": [
+    "cyberpunk",
+    "mega-pack",
+    "bundle"
+  ],
+  "assets": {}
+}

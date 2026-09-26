@@ -1,0 +1,14 @@
+// WebGL digital rain
+scene {
+
+    background "#000000"
+
+    rain {
+        color "#00ff41"
+        head "#ddffdd"
+        speed 1.2
+        density 0.7
+        glyphs "01ｱｳｴｵｶｷｸｹｺ"
+    }
+
+}

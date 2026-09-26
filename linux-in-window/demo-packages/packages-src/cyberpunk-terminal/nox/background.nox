@@ -1,0 +1,18 @@
+// Animated neon grid background (WebGL)
+scene {
+
+    background "#050509"
+
+    grid {
+        color "#ff00aa"
+        spacing 40
+        fade true
+    }
+
+    particles {
+        count 80
+        color "#00ffcc"
+        speed 0.4
+    }
+
+}
