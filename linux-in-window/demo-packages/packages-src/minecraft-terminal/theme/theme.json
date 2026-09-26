@@ -1,0 +1,44 @@
+{
+  "scheme": {
+    "name": "Minecraft",
+    "foreground": "#FFFFFF",
+    "background": "#2B2B2B",
+    "cursorColor": "#7BD34E",
+    "palette": {
+      "black": "#000000",
+      "red": "#B02E2E",
+      "green": "#7BD34E",
+      "yellow": "#FCE94F",
+      "blue": "#3C44A8",
+      "purple": "#8B57A8",
+      "cyan": "#4EA8A8",
+      "white": "#FFFFFF"
+    }
+  },
+  "profile": {
+    "name": "Minecraft",
+    "fontSize": 13,
+    "opacity": 0.97,
+    "padding": "10,10,10,10",
+    "tabColor": "#7BD34E"
+  },
+  "font": {
+    "face": "Minecraftia",
+    "size": 13
+  },
+  "background": {
+    "color": "#2B2B2B",
+    "image": "assets/textures/dirt.png",
+    "opacity": 0.25
+  },
+  "sounds": [
+    {
+      "event": "startup",
+      "file": "assets/sounds/craft.ogg"
+    },
+    {
+      "event": "bell",
+      "file": "assets/sounds/note.ogg"
+    }
+  ]
+}

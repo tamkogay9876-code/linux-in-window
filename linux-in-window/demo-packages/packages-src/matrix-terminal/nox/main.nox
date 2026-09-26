@@ -1,0 +1,28 @@
+terminal {
+
+    background "#000000"
+
+    color "#00ff41"
+
+    cursor {
+        color "#87ffaf"
+        blink true
+    }
+
+}
+
+animation glow {
+
+    target "terminal"
+
+    property brightness
+
+    from 0.9
+
+    to 1.05
+
+    duration 900
+
+    loop true
+
+}

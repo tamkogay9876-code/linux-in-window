@@ -1,0 +1,45 @@
+{
+  "scheme": {
+    "name": "Cyberpunk",
+    "foreground": "#00FFCC",
+    "background": "#050509",
+    "cursorColor": "#FF00AA",
+    "palette": {
+      "black": "#050509",
+      "red": "#FF3366",
+      "green": "#00FFCC",
+      "yellow": "#FFE600",
+      "blue": "#0099FF",
+      "purple": "#FF00AA",
+      "cyan": "#00FFFF",
+      "white": "#E0F7FA"
+    }
+  },
+  "profile": {
+    "name": "Cyberpunk",
+    "fontSize": 12,
+    "opacity": 0.95,
+    "acrylic": true,
+    "padding": "12,12,12,12",
+    "tabColor": "#FF00AA",
+    "cursorShape": "vintage"
+  },
+  "font": {
+    "face": "CaskaydiaCove Nerd Font",
+    "size": 12
+  },
+  "background": {
+    "color": "#050509",
+    "image": "assets/background.jpg",
+    "opacity": 0.35
+  },
+  "prompt": {
+    "style": "powerline",
+    "left": [
+      "user@windows",
+      "cwd",
+      "git"
+    ],
+    "separator": ""
+  }
+}

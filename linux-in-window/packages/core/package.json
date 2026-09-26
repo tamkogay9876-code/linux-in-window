@@ -1,0 +1,10 @@
+{
+  "name": "@liw/core",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js"
+  },
+  "description": "Linux in Window core: storage layout, manifest validation, package manager, registry client, backup/rollback, permissions, profiles, conflicts"
+}

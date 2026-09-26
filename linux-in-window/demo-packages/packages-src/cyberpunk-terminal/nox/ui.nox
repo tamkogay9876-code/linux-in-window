@@ -1,0 +1,16 @@
+// Neon panel overlay
+panel {
+
+    position center
+
+    width 600
+
+    height 300
+
+    blur 20
+
+    radius 20
+
+    border "#00ffff"
+
+}

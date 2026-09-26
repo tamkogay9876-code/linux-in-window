@@ -1,0 +1,39 @@
+{
+  "id": "retro-dos",
+  "name": "Retro DOS",
+  "version": "1.0.5",
+  "author": "Linux in Window Community",
+  "description": "Old-school DOS/CGA vibes with a Python status widget.",
+  "type": "theme",
+  "entry": "main.py",
+  "runtime": {
+    "python": true,
+    "nox": false,
+    "webgl": false
+  },
+  "permissions": [
+    "terminal",
+    "python",
+    "windows-terminal"
+  ],
+  "targets": [
+    "windows-terminal",
+    "cmd"
+  ],
+  "dependencies": [],
+  "tags": [
+    "retro",
+    "dos",
+    "cga",
+    "nostalgia"
+  ],
+  "performance": {
+    "gpu": "none",
+    "ram": "low",
+    "fps": 0
+  },
+  "assets": {
+    "preview": "preview.png",
+    "icon": "assets/icon.png"
+  }
+}

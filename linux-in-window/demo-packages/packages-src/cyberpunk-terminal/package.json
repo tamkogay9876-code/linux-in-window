@@ -1,0 +1,41 @@
+{
+  "id": "cyberpunk-terminal",
+  "name": "Cyberpunk Terminal",
+  "version": "1.0.0",
+  "author": "Linux in Window Community",
+  "description": "Cyberpunk inspired terminal customization: neon colors, glitch prompt, pulse animation.",
+  "type": "theme",
+  "entry": "main.py",
+  "runtime": {
+    "python": false,
+    "nox": true,
+    "webgl": false
+  },
+  "permissions": [
+    "terminal",
+    "filesystem:user",
+    "windows-terminal",
+    "nox"
+  ],
+  "targets": [
+    "windows-terminal",
+    "powershell",
+    "cmd"
+  ],
+  "dependencies": [],
+  "tags": [
+    "cyberpunk",
+    "neon",
+    "terminal",
+    "gaming"
+  ],
+  "performance": {
+    "gpu": "low",
+    "ram": "low",
+    "fps": 30
+  },
+  "assets": {
+    "preview": "preview.png",
+    "icon": "assets/icon.png"
+  }
+}

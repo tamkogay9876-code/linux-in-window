@@ -1,0 +1,38 @@
+{
+  "id": "minimal-terminal",
+  "name": "Minimal Terminal",
+  "version": "1.0.0",
+  "author": "Linux in Window Community",
+  "description": "A clean, distraction-free terminal look. Pure JSON, zero runtime.",
+  "type": "theme",
+  "runtime": {
+    "python": false,
+    "nox": false,
+    "webgl": false
+  },
+  "permissions": [
+    "terminal",
+    "windows-terminal"
+  ],
+  "targets": [
+    "windows-terminal",
+    "powershell",
+    "cmd"
+  ],
+  "dependencies": [],
+  "tags": [
+    "minimal",
+    "clean",
+    "lightweight",
+    "no-scripts"
+  ],
+  "performance": {
+    "gpu": "none",
+    "ram": "none",
+    "fps": 0
+  },
+  "assets": {
+    "preview": "preview.png",
+    "icon": "assets/icon.png"
+  }
+}

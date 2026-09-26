@@ -1,0 +1,36 @@
+{
+  "scheme": {
+    "name": "Minimal",
+    "foreground": "#D4D4D4",
+    "background": "#181818",
+    "cursorColor": "#D4D4D4",
+    "palette": {
+      "black": "#181818",
+      "red": "#C74E4E",
+      "green": "#4EC77E",
+      "yellow": "#C7B94E",
+      "blue": "#4E7EC7",
+      "purple": "#9A4EC7",
+      "cyan": "#4EC7C7",
+      "white": "#D4D4D4"
+    }
+  },
+  "profile": {
+    "name": "Minimal",
+    "fontSize": 12,
+    "opacity": 1,
+    "padding": "8,8,8,8",
+    "cursorShape": "bar"
+  },
+  "font": {
+    "face": "Cascadia Mono",
+    "size": 12
+  },
+  "background": {
+    "color": "#181818"
+  },
+  "prompt": {
+    "style": "minimal",
+    "format": "> "
+  }
+}

@@ -1,0 +1,43 @@
+{
+  "id": "minecraft-terminal",
+  "name": "Minecraft Terminal",
+  "version": "1.2.0",
+  "author": "Linux in Window Community",
+  "description": "Blocky voxel terminal: rotating 3D cube scene, pixel font, grass texture background.",
+  "type": "3d",
+  "runtime": {
+    "python": false,
+    "nox": true,
+    "webgl": true
+  },
+  "permissions": [
+    "terminal",
+    "windows-terminal",
+    "nox",
+    "gpu",
+    "audio"
+  ],
+  "targets": [
+    "windows-terminal"
+  ],
+  "dependencies": [
+    "minimal-terminal"
+  ],
+  "tags": [
+    "minecraft",
+    "3d",
+    "voxel",
+    "gaming",
+    "threejs"
+  ],
+  "performance": {
+    "gpu": "high",
+    "ram": "medium",
+    "fps": 60
+  },
+  "assets": {
+    "preview": "preview.png",
+    "icon": "assets/icon.png",
+    "background": "assets/textures/grass.png"
+  }
+}

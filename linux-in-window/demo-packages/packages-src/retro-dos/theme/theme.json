@@ -1,0 +1,36 @@
+{
+  "scheme": {
+    "name": "Retro DOS",
+    "foreground": "#FFA500",
+    "background": "#000000",
+    "cursorColor": "#FFA500",
+    "palette": {
+      "black": "#000000",
+      "red": "#AA0000",
+      "green": "#00AA00",
+      "yellow": "#FFA500",
+      "blue": "#0000AA",
+      "purple": "#AA00AA",
+      "cyan": "#00AAAA",
+      "white": "#AAAAAA"
+    }
+  },
+  "profile": {
+    "name": "Retro DOS",
+    "fontSize": 14,
+    "opacity": 1,
+    "padding": "4,4,4,4",
+    "cursorShape": "block"
+  },
+  "font": {
+    "face": "Perfect DOS VGA 437 Win",
+    "size": 14
+  },
+  "background": {
+    "color": "#000000"
+  },
+  "prompt": {
+    "style": "dos",
+    "format": "{drive}>{cwd}$ "
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "matrix-terminal",
+  "name": "Matrix Terminal",
+  "version": "1.1.0",
+  "author": "Linux in Window Community",
+  "description": "Follow the white rabbit. Digital rain background rendered with WebGL.",
+  "type": "background",
+  "runtime": {
+    "python": false,
+    "nox": true,
+    "webgl": true
+  },
+  "permissions": [
+    "terminal",
+    "windows-terminal",
+    "nox",
+    "gpu"
+  ],
+  "targets": [
+    "windows-terminal"
+  ],
+  "dependencies": [],
+  "tags": [
+    "matrix",
+    "webgl",
+    "animation",
+    "hacker"
+  ],
+  "performance": {
+    "gpu": "medium",
+    "ram": "low",
+    "fps": 60
+  },
+  "assets": {
+    "preview": "preview.png",
+    "icon": "assets/icon.png"
+  }
+}

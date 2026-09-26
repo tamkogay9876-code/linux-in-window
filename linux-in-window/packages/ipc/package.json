@@ -1,0 +1,8 @@
+{
+  "name": "@liw/ipc",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/channels.js",
+  "exports": { ".": "./src/channels.js" },
+  "description": "Shared IPC channel names + payload types between GUI, Electron main and core"
+}

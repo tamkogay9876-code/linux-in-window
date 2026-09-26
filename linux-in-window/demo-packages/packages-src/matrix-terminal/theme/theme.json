@@ -1,0 +1,28 @@
+{
+  "scheme": {
+    "name": "Matrix",
+    "foreground": "#00FF41",
+    "background": "#000000",
+    "cursorColor": "#00FF41",
+    "palette": {
+      "black": "#000000",
+      "green": "#00FF41",
+      "cyan": "#87FFAF",
+      "white": "#DDFFDD"
+    }
+  },
+  "profile": {
+    "name": "Matrix",
+    "fontSize": 12,
+    "opacity": 0.92,
+    "backgroundImageStretchMode": "none",
+    "cursorShape": "vintage"
+  },
+  "font": {
+    "face": "Cascadia Code",
+    "size": 12
+  },
+  "background": {
+    "color": "#000000"
+  }
+}

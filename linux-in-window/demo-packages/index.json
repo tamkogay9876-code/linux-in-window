@@ -1,0 +1,231 @@
+{
+  "generatedAt": "2026-09-26T01:56:24.240Z",
+  "packages": [
+    {
+      "id": "minimal-terminal",
+      "name": "Minimal Terminal",
+      "version": "1.0.0",
+      "description": "A clean, distraction-free terminal look. Pure JSON, zero runtime.",
+      "author": "Linux in Window Community",
+      "type": "theme",
+      "category": "themes",
+      "tags": [
+        "minimal",
+        "clean",
+        "lightweight",
+        "no-scripts"
+      ],
+      "dependencies": [],
+      "permissions": [
+        "terminal",
+        "windows-terminal"
+      ],
+      "size": 2219,
+      "sha256": "8807f25e507418361c5716c5bc85e8a2e03146a7d08c49cb7ea6988fdac2ee77",
+      "downloads": 45210,
+      "rating": 4.6,
+      "status": "approved",
+      "compatibility": [
+        "windows 10+",
+        "windows 11+"
+      ],
+      "includes": [
+        "Theme",
+        "Prompt"
+      ],
+      "updatedAt": "2026-09-01T00:00:00.000Z",
+      "file": "minimal-terminal-1.0.0.linuxmod"
+    },
+    {
+      "id": "cyberpunk-terminal",
+      "name": "Cyberpunk Terminal",
+      "version": "1.0.0",
+      "description": "Cyberpunk inspired terminal customization: neon colors, glitch prompt, pulse animation.",
+      "author": "Linux in Window Community",
+      "type": "theme",
+      "category": "themes",
+      "tags": [
+        "cyberpunk",
+        "neon",
+        "terminal",
+        "gaming"
+      ],
+      "dependencies": [],
+      "permissions": [
+        "terminal",
+        "filesystem:user",
+        "windows-terminal",
+        "nox"
+      ],
+      "size": 3534,
+      "sha256": "205fdecf8b65eadaf8229eabd9c059d2a3b9439f9bfc9b3054d0cd2ad0baa2ad",
+      "downloads": 12543,
+      "rating": 4.8,
+      "status": "approved",
+      "compatibility": [
+        "windows 10+",
+        "windows 11+"
+      ],
+      "includes": [
+        "Theme",
+        "Prompt",
+        "Animation"
+      ],
+      "updatedAt": "2026-09-01T00:00:00.000Z",
+      "file": "cyberpunk-terminal-1.0.0.linuxmod"
+    },
+    {
+      "id": "retro-dos",
+      "name": "Retro DOS",
+      "version": "1.0.5",
+      "description": "Old-school DOS/CGA vibes with a Python status widget.",
+      "author": "Linux in Window Community",
+      "type": "theme",
+      "category": "retro",
+      "tags": [
+        "retro",
+        "dos",
+        "cga",
+        "nostalgia"
+      ],
+      "dependencies": [],
+      "permissions": [
+        "terminal",
+        "python",
+        "windows-terminal"
+      ],
+      "size": 2967,
+      "sha256": "7c1013fe1931c5760daed466358e0013c297681eea81470ef83271d786fda2d5",
+      "downloads": 8890,
+      "rating": 4.4,
+      "status": "approved",
+      "compatibility": [
+        "windows 10+",
+        "windows 11+"
+      ],
+      "includes": [
+        "Theme",
+        "Prompt",
+        "Script"
+      ],
+      "updatedAt": "2026-09-01T00:00:00.000Z",
+      "file": "retro-dos-1.0.5.linuxmod"
+    },
+    {
+      "id": "matrix-terminal",
+      "name": "Matrix Terminal",
+      "version": "1.1.0",
+      "description": "Follow the white rabbit. Digital rain background rendered with WebGL.",
+      "author": "Linux in Window Community",
+      "type": "background",
+      "category": "backgrounds",
+      "tags": [
+        "matrix",
+        "webgl",
+        "animation",
+        "hacker"
+      ],
+      "dependencies": [],
+      "permissions": [
+        "terminal",
+        "windows-terminal",
+        "nox",
+        "gpu"
+      ],
+      "size": 2754,
+      "sha256": "91a85ddcdf361f12c4abab5f264332b9c3b5ab1a825678b5327c35dc9b2ef3e4",
+      "downloads": 20117,
+      "rating": 4.7,
+      "status": "approved",
+      "compatibility": [
+        "windows 10+",
+        "windows 11+"
+      ],
+      "includes": [
+        "Theme",
+        "Animation",
+        "3D"
+      ],
+      "updatedAt": "2026-09-01T00:00:00.000Z",
+      "file": "matrix-terminal-1.1.0.linuxmod"
+    },
+    {
+      "id": "minecraft-terminal",
+      "name": "Minecraft Terminal",
+      "version": "1.2.0",
+      "description": "Blocky voxel terminal: rotating 3D cube scene, pixel font, grass texture background.",
+      "author": "Linux in Window Community",
+      "type": "3d",
+      "category": "3d",
+      "tags": [
+        "minecraft",
+        "3d",
+        "voxel",
+        "gaming",
+        "threejs"
+      ],
+      "dependencies": [
+        "minimal-terminal"
+      ],
+      "permissions": [
+        "terminal",
+        "windows-terminal",
+        "nox",
+        "gpu",
+        "audio"
+      ],
+      "size": 3377,
+      "sha256": "94dc514c71f28c38c864f28bd5f46bee4e094f0905819e1d5456662caae63846",
+      "downloads": 33456,
+      "rating": 4.9,
+      "status": "approved",
+      "compatibility": [
+        "windows 10+",
+        "windows 11+"
+      ],
+      "includes": [
+        "Theme",
+        "Animation",
+        "3D"
+      ],
+      "updatedAt": "2026-09-01T00:00:00.000Z",
+      "file": "minecraft-terminal-1.2.0.linuxmod"
+    },
+    {
+      "id": "cyberpunk-ultimate",
+      "name": "Cyberpunk Ultimate (Mega Pack)",
+      "version": "1.0.0",
+      "description": "Theme + prompt + background + animation combined into one mega pack.",
+      "author": "Linux in Window Community",
+      "type": "mega-pack",
+      "category": "developer",
+      "tags": [
+        "cyberpunk",
+        "mega-pack",
+        "bundle"
+      ],
+      "dependencies": [
+        "cyberpunk-terminal",
+        "minimal-terminal"
+      ],
+      "permissions": [
+        "terminal",
+        "windows-terminal",
+        "nox",
+        "gpu"
+      ],
+      "size": 1651,
+      "sha256": "abfbaba4ac2187177bb2d834a1d44d2779d0d54c4dd9397f8993cdc54012073b",
+      "downloads": 5120,
+      "rating": 4.5,
+      "status": "approved",
+      "compatibility": [
+        "windows 10+",
+        "windows 11+"
+      ],
+      "includes": [],
+      "updatedAt": "2026-09-01T00:00:00.000Z",
+      "file": "cyberpunk-ultimate-1.0.0.linuxmod"
+    }
+  ]
+}

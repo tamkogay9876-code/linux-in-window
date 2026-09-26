@@ -1,0 +1,30 @@
+// Rotating voxel cube (Three.js scene compiled from nox)
+scene {
+
+    background "#6BA4E8"
+
+    cube {
+        position 0 0 -5
+
+        rotation 0 45 0
+
+        color "#7bd34e"
+
+        texture "assets/textures/grass.png"
+
+        animate rotation.y {
+            from 0
+            to 360
+            duration 4
+            loop true
+        }
+    }
+
+    cube {
+        position 2 -1 -6
+        rotation 0 20 0
+        color "#8a5a2b"
+        texture "assets/textures/dirt.png"
+    }
+
+}

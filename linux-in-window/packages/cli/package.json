@@ -1,0 +1,9 @@
+{
+  "name": "@liw/cli",
+  "version": "0.1.0",
+  "type": "module",
+  "main": "./src/index.js",
+  "bin": { "linux": "./src/index.js" },
+  "exports": { ".": "./src/index.js" },
+  "description": "Linux in Window command line interface (linux ...)"
+}
