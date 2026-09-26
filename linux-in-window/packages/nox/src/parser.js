@@ -110,32 +110,44 @@ export function parseNox(src) {
   }
 
   /**
-   * Is the identifier at index `k` a *value* (bareword argument) rather than
-   * the name of a new statement? Three cases:
-   *  - dotted reference (`rotation.y`) — always a value;
-   *  - plain bareword followed by `{` (`animation pulse {`);
-   *  - plain bareword followed by another plain bareword that is itself a
-   *    value (`property opacity to ...` -> `opacity` is followed by the value
-   *    `to`, so it is a value too). This chained rule never swallows a
-   *    statement name, because a name is only ever followed by literals or
-   *    `{`/ident-that-is-a-name.
+   * Classify the plain identifier at index `k` (which follows the already
+   * consumed values of a statement) as either:
+   *  - 'value' — a bareword argument of the current statement
+   *    (`position center`, `property opacity to 1.0`, `animation pulse {`), or
+   *  - 'name'  — the name of the next statement (`color "#ff00aa"`).
+   * Walk forward over the run of consecutive idents starting at `k`; let L be
+   * its length and T the terminating token:
+   *  - T is `{`: if the run's last word is dotted (`rotation.y`) every ident
+   *    in the run is a value (`animate rotation.y { ... }`); otherwise the
+   *    last word names a nested block and `k` is a value iff L >= 2
+   *    (`animation pulse { ... }`).
+   *  - T is `}`/EOF: the run parses right-to-left as `[name] [name] value`,
+   *    so `k` is a value iff L is odd (`position center }` -> L=1 -> value;
+   *    `blink cursor color }` -> L=3 -> blink is a name).
+   *  - T is a literal: the last word of the run names a statement whose
+   *    values follow, so `k` is a value iff L is even
+   *    (`opacity`,`to` + number -> L=2 -> value; `color` + string -> name).
    */
-  function identIsValue(k) {
-    if (tokens[k]?.type !== 'ident') return false;
-    if (tokens[k].value.includes('.')) return true; // dotted reference like rotation.y
-    const nxt = tokens[k + 1];
-    if (!nxt) return false;
-    if (nxt.type === '{') return true;                 // `position center` / `animation pulse {`
-    if (nxt.type === 'ident' && !nxt.value.includes('.')) {
-      // `property opacity to 1.0`: `opacity` is a value iff `to` is one too.
-      return identIsValue(k + 2);
+  function identRole(k) {
+    const t = tokens[k];
+    if (!t || t.type !== 'ident') return 'name';
+    let j = k;
+    while (tokens[j] && tokens[j].type === 'ident') j++;
+    const L = j - k;
+    const term = tokens[j];
+    if (!term || term.type === 'eof' || term.type === '}') return L % 2 === 1 ? 'value' : 'name';
+    if (term.type === '{') {
+      if (tokens[j - 1].value.includes('.')) return 'value';
+      return L >= 2 ? 'value' : 'name';
     }
-    return false;
+    return L % 2 === 0 ? 'value' : 'name';
   }
 
   /** Consume bareword values into `into`: `position center`, `animate rotation.y { ... }`. */
   function collectBarewords(into) {
-    while (peek().type === 'ident' && identIsValue(pos)) {
+    while (peek().type === 'ident') {
+      if (peek().value.includes('.')) { into.push({ kind: 'ref', value: next().value }); continue; }
+      if (identRole(pos) !== 'value') break;
       into.push({ kind: 'ref', value: next().value });
     }
   }
@@ -144,13 +156,12 @@ export function parseNox(src) {
     const body = [];
     for (;;) {
       const t = peek();
-      let args;
       if (t.type === 'eof') throw new NoxSyntaxError('unexpected end of file, expected "}"', t.line, t.col);
       if (t.type === '}') { next(); return body; }
       if (t.type !== 'ident') throw new NoxSyntaxError(`expected identifier, got "${t.type}"`, t.line, t.col);
       next();
       const name = t.value;
-      args = collectValues();
+      const args = collectValues();
       collectBarewords(args);
 
       const term = terminatorType();

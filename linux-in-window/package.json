@@ -18,7 +18,7 @@
     "dev:gui": "npm run dev -w @liw/gui",
     "dev:electron": "npm run dev -w @liw/electron",
     "test": "node --test tests/",
-    "linux": "node packages/cli/dist/index.js"
+    "linux": "node packages/cli/src/index.js"
   },
   "engines": {
     "node": ">=18"
