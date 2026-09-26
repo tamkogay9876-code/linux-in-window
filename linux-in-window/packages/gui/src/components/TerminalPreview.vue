@@ -1,9 +1,11 @@
 <script setup>
 // Live preview: renders a compiled Nox program (terminal colors, prompt,
 // animations) plus a Three.js WebGL scene when the package declares one.
-import { onMounted, onBeforeUnmount, ref, watch } from 'vue';
+import { onMounted, onBeforeUnmount, ref, watch, computed } from 'vue';
 
 const props = defineProps({ nox: { type: Object, default: null }, theme: { type: Object, default: null } });
+// nox.animations is a keyed map ({ name: anim }) produced by compileForBrowser
+const animList = computed(() => Object.values(props.nox?.animations || {}));
 
 const canvasEl = ref(null);
 let three = null; // { renderer, scene, camera, raf }
@@ -81,7 +83,7 @@ onBeforeUnmount(stopScene);
 │  System ready                                                │
 │  Packages loaded: {{ nox ? 'Nox runtime ✓' : 'JSON theme only' }}<span v-if="blink" class="cursor" :style="{ background: cursorColor() }">▮</span>
 ╰──────────────────────────────────────────────────────────────╯</pre>
-      <div v-if="nox?.animations?.length" class="anim-note muted tiny">animation: {{ nox.animations.map(a => a.name + ' (' + a.property + ')').join(', ') }}</div>
+      <div v-if="animList.length" class="anim-note muted tiny">animation: {{ animList.map(a => a.name + ' (' + a.property + ')').join(', ') }}</div>
     </div>
   </div>
 </template>

@@ -29,7 +29,7 @@ function collectProps(node) {
 
 export function compileForBrowser(source) {
   const ast = parseNox(source);
-  const out = { terminal: {}, scene: null, scenes: [], animations: [], panels: [], prompts: [] };
+  const out = { terminal: {}, scene: null, scenes: [], animations: {}, panels: [], prompts: [] };
 
   for (const top of ast) {
     const { props, blocks } = collectProps(top);
@@ -74,14 +74,16 @@ export function compileForBrowser(source) {
         break;
       }
       case 'animation': {
-        out.animations.push({
+        const anim = {
           name: typeof top.args[0]?.value === 'string' ? top.args[0].value : String(props.target || 'anim'),
           target: props.target,
           property: props.property,
           from: props.from, to: props.to,
           duration: props.duration ?? 1000,
           loop: props.loop !== false,
-        });
+        };
+        // keyed map (animations[name]) + array mirror for iteration convenience
+        out.animations[anim.name] = anim;
         break;
       }
       case 'panel': {

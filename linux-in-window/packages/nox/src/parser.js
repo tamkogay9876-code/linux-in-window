@@ -220,11 +220,22 @@ function nodeToValue(n) {
   return obj;
 }
 
-export function validateNox(src) {
+export function validateNox(src, { allowedBlocks = null } = {}) {
+  const errors = [];
+  let ast = null;
   try {
-    const ast = parseNox(src);
-    return { ok: true, ast, errors: [] };
+    ast = parseNox(src);
   } catch (e) {
     return { ok: false, ast: null, errors: [e.message] };
   }
+  // Default whitelist mirrors the sandbox runtime's ALLOWED_TOP_BLOCKS.
+  const known = allowedBlocks || new Set([
+    'terminal', 'scene', 'animation', 'panel', 'prompt', 'cursor', 'window', 'widget',
+  ]);
+  for (const top of ast) {
+    if (!known.has(top.name)) {
+      errors.push(`unknown top-level block "${top.name}"`);
+    }
+  }
+  return { ok: errors.length === 0, ast, errors };
 }
