@@ -1,0 +1,8 @@
+{
+  "name": "Linux in Window",
+  "description": "An interactive, web-based Linux desktop and terminal environment running in a windowed OS workspace with simulated filesystem, shell, packages, and apps.",
+  "permissions": [],
+  "capabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
